@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1027348779575",
+    "project_id": "lumix-a42f1",
+    "storage_bucket": "lumix-a42f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027348779575:android:01d784f118ba27c207e5b2",
+        "android_client_info": {
+          "package_name": "com.Lumix.Lumix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027348779575-csloe6q93244sbhtph5vbenilujm3tmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwfWZT3tleYKSaD4uHwsm8TbsP8yA2EUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027348779575-csloe6q93244sbhtph5vbenilujm3tmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
