@@ -134,55 +134,55 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       })
                 ],
               ),
-              spaceH(10),
-              Divider(
-                thickness: 1,
-                color: HexColor("#E3E1E1"),
-              ),
-              spaceH(10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset("assets/images/Forma 1 copy 12.png"),
-                  spaceW(10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        LocaleKeys.Visa.tr(),
-                        style: headingStyle.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 11.sp,
-                            color: HexColor("#2D2C2C")),
-                      ),
-                      spaceH(5),
-                      Text(
-                        ".... ...... ...... 567",
-                        style: headingStyle.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 9.sp,
-                            color: HexColor("#6A737C").withOpacity(0.6)),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Radio(
-                      value: 1,
-                      groupValue: AppCubit.get(context).selectedVisa,
-                      onChanged: (value) {
-                        AppCubit.get(context).selectedVisa = 1;
-                        AppCubit.get(context).visaSelection(selected: 1);
-                        AppCubit.get(context).selectedCash = null;
-                        AppCubit.get(context).cashSelection(selected: null);
-                        PaymentScreen.paymentMethod = 'master_card';
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VisaScreen()));
-                      })
-                ],
-              ),
+              // spaceH(10),
+              // Divider(
+              //   thickness: 1,
+              //   color: HexColor("#E3E1E1"),
+              // ),
+              // spaceH(10),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Image.asset("assets/images/Forma 1 copy 12.png"),
+              //     spaceW(10),
+              //     Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       mainAxisSize: MainAxisSize.min,
+              //       children: [
+              //         Text(
+              //           LocaleKeys.Visa.tr(),
+              //           style: headingStyle.copyWith(
+              //               fontWeight: FontWeight.w500,
+              //               fontSize: 11.sp,
+              //               color: HexColor("#2D2C2C")),
+              //         ),
+              //         spaceH(5),
+              //         Text(
+              //           ".... ...... ...... 567",
+              //           style: headingStyle.copyWith(
+              //               fontWeight: FontWeight.w500,
+              //               fontSize: 9.sp,
+              //               color: HexColor("#6A737C").withOpacity(0.6)),
+              //         ),
+              //       ],
+              //     ),
+              //     const Spacer(),
+              // Radio(
+              //     value: 1,
+              //     groupValue: AppCubit.get(context).selectedVisa,
+              //     onChanged: (value) {
+              //       AppCubit.get(context).selectedVisa = 1;
+              //       AppCubit.get(context).visaSelection(selected: 1);
+              //       AppCubit.get(context).selectedCash = null;
+              //       AppCubit.get(context).cashSelection(selected: null);
+              //       PaymentScreen.paymentMethod = 'master_card';
+              //       Navigator.pushReplacement(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => VisaScreen()));
+              //     })
+              //   ],
+              // ),
             ],
           ),
         );
