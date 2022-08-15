@@ -45,8 +45,8 @@ dependencies:
   badges: ^2.0.1
   dio: ^4.0.4
   shared_preferences:
-  firebase_auth:
-  firebase_core:
+  # firebase_auth:
+  # firebase_core:
   fluttertoast:
   conditional_builder_null_safety: ^0.0.6
   cached_network_image: ^3.2.0
@@ -57,7 +57,7 @@ dependencies:
   easy_localization: ^3.0.0
   share: ^2.0.4
   google_sign_in:
-  cloud_firestore:
+  # cloud_firestore:
   location: ^4.3.0
   geocoding: ^2.0.2
 

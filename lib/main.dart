@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
@@ -22,7 +22,7 @@ import 'network/dio/dio_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
   DioHelper.inti();
 

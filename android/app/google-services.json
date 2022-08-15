@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1027348779575",
-    "project_id": "lumix-a42f1",
-    "storage_bucket": "lumix-a42f1.appspot.com"
+    "project_number": "777636025769",
+    "project_id": "mahmoudse-ad63e",
+    "storage_bucket": "mahmoudse-ad63e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1027348779575:android:01d784f118ba27c207e5b2",
+        "mobilesdk_app_id": "1:777636025769:android:c40cc2f793191ae96ae0b8",
         "android_client_info": {
           "package_name": "com.Lumix.Lumix"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1027348779575-csloe6q93244sbhtph5vbenilujm3tmr.apps.googleusercontent.com",
+          "client_id": "777636025769-i8dafgvgld9tooilhrmaccht09c562lm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwfWZT3tleYKSaD4uHwsm8TbsP8yA2EUo"
+          "current_key": "AIzaSyByusCCVFw_R_bAUbZ9iw5bzn4LfBv7Xoo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1027348779575-csloe6q93244sbhtph5vbenilujm3tmr.apps.googleusercontent.com",
+              "client_id": "777636025769-i8dafgvgld9tooilhrmaccht09c562lm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
