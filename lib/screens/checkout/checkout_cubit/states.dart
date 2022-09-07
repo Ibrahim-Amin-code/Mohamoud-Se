@@ -1,26 +1,39 @@
-abstract class CheckoutState{}
+abstract class CheckoutState {}
 
+class CheckoutInitialState extends CheckoutState {}
 
-class CheckoutInitialState extends CheckoutState{}
+class CheckoutLoadingState extends CheckoutState {}
 
-class CheckoutLoadingState extends CheckoutState{}
-class CheckoutSuccessState extends CheckoutState{}
-class CheckoutErrorState extends CheckoutState{
+class CheckoutSuccessState extends CheckoutState {}
+
+class CheckoutErrorState extends CheckoutState {
   final String error;
   CheckoutErrorState(this.error);
 }
 
-class AddAddressLoadingState extends CheckoutState{}
-class AddAddressSuccessState extends CheckoutState{}
-class AddAddressErrorState extends CheckoutState{
+class AddAddressLoadingState extends CheckoutState {}
+
+class AddAddressSuccessState extends CheckoutState {}
+
+class AddAddressErrorState extends CheckoutState {
   final String error;
   AddAddressErrorState(this.error);
 }
 
+class DeleteAddressLoadingState extends CheckoutState {}
 
-class DeleteAddressLoadingState extends CheckoutState{}
-class DeleteAddressSuccessState extends CheckoutState{}
-class DeleteAddressErrorState extends CheckoutState{
+class DeleteAddressSuccessState extends CheckoutState {}
+
+class DeleteAddressErrorState extends CheckoutState {
   final String error;
   DeleteAddressErrorState(this.error);
+}
+
+class DeleteAccountLoadingState extends CheckoutState {}
+
+class DeleteAccountSuccessState extends CheckoutState {}
+
+class DeleteAccountErrorState extends CheckoutState {
+  final String error;
+  DeleteAccountErrorState(this.error);
 }

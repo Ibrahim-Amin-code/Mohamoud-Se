@@ -19,6 +19,8 @@ class LoginCubit extends Cubit<LoginStates> {
 
   LoginModel loginModel = LoginModel();
 
+  //http://beautiheath.com/sub/eshop/api/buyers/register
+
   void userLogin({
     required String email,
     required String password,

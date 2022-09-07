@@ -82,6 +82,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   void deleteAddress({required String addressId}) {
     emit(DeleteAddressLoadingState());
+
     DioHelper.postData(url: DeleteAddress, data: {'addressId': addressId})
         .then((value) {
       print(
@@ -90,6 +91,21 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     }).catchError((error) {
       print(error.toString());
       emit(DeleteAddressErrorState(error.toString()));
+    });
+  }
+
+  void deleteAccount() async {
+    emit(DeleteAccountLoadingState());
+    String token = await CacheHelper.getData(key: 'token');
+
+    DioHelper.postData(url: DeleteAccount, data: {}, token: token)
+        .then((value) {
+      print(
+          'deleteAddress---------------------------------------- ${value.data}');
+      emit(DeleteAccountSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(DeleteAccountErrorState(error.toString()));
     });
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/generated/locale_keys.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
 import 'package:nib_app/screens/Authnitication/auth.dart';
 import 'package:nib_app/screens/all_brands/all_brands_screen.dart';
 import 'package:nib_app/screens/categories/categories_component/component.dart';
+import 'package:nib_app/screens/checkout/checkout_cubit/checkout_cubit.dart';
+import 'package:nib_app/screens/checkout/checkout_cubit/states.dart';
 import 'package:nib_app/screens/home/home_component/home_component.dart';
 import 'package:nib_app/screens/home/home_cubit/home_cubit.dart';
 import 'package:nib_app/screens/layout/layout_screen.dart';
@@ -242,6 +245,48 @@ class MoreScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          myDivider(height: 1),
+          BlocConsumer<CheckoutCubit, CheckoutState>(
+            listener: (context, state) {
+              if (state is DeleteAccountSuccessState) {
+                CacheHelper.clearData();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AuthniticationScreen()),
+                    (route) => false);
+              }
+            },
+            builder: (context, state) {
+              return InkWell(
+                onTap: () {
+                  CheckoutCubit.get(context).deleteAccount();
+                },
+                child: Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  height: 70,
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/logout.png',
+                          color: HexColor('#AA1050')),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        LocaleKeys.DELETE_ACCOUNT.tr(),
+                        style: TextStyle(
+                          color: HexColor('#171717'),
+                          fontSize: 15,
+                          fontFamily: 'OpenSans',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           myDivider(height: 1),
         ],

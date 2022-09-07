@@ -141,7 +141,7 @@ abstract class LocaleKeys {
   static const First_Name = 'First_Name';
   static const Last_Name = 'Last_Name';
   static const Full_Name = 'Full_Name';
-
+  static const DELETE_ACCOUNT = 'DELETE ACCOUNT';
   static const Change_Password = 'Change_Password';
   static const E_Mail = 'E_Mail';
   static const Select_Gender = 'Select_Gender';

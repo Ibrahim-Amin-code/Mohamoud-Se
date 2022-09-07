@@ -21,6 +21,8 @@ const AddReview = 'add-review';
 const AllReviews = 'all-reviews';
 const AddAddress = 'add-adress';
 const DeleteAddress = 'delete-adress';
+const DeleteAccount = 'remove-acount';
+
 const GetOrder = 'get-buyer-order';
 const SendOrder = 'send-order';
 const DeleteOrder = 'order-status';

@@ -184,6 +184,7 @@ class CodegenLoader extends AssetLoader {
 
     "New Price": "السعر الجديد",
     "Sale Off": "الخصم",
+    "DELETE_ACCOUNT": "حذف الحساب",
 
     "Add items": "أضف منتجات بقيمة 60.00 ريال أكثر للحصول على توصيل مجاني",
   };
@@ -192,6 +193,7 @@ class CodegenLoader extends AssetLoader {
     "Summary Details": "Summary Details",
     "EDIT": "EDIT",
     "coin": "Select Coin",
+    "DELETE_ACCOUNT": "Delete Account",
 
     "Currency": "\$",
     "Quantity": "Quantity",
@@ -374,6 +376,7 @@ class CodegenLoader extends AssetLoader {
     "Complete_Oreder": "slutföra din beställning",
     "Currency": "kr",
     "SignUp": "BLI MEDLEM",
+    "DELETE_ACCOUNT": "RADERA KONTO",
     "Skip": "Hoppa över >>",
     "Quantity": "Kvantitet",
     "Welcome , Please Create your Account ":
