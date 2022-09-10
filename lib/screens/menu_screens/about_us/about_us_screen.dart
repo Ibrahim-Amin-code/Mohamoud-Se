@@ -106,17 +106,29 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                               color: HexColor('#7E7E7E'),
                               fontFamily: 'OpenSans'),
                         )
-                      : Text(
-                          parseHtmlString(HomeCubit.get(context)
-                              .contactModel
-                              .data!
-                              .descriptionAr!),
-                          style: TextStyle(
-                              fontSize: 12.5.sp,
-                              fontWeight: FontWeight.w600,
-                              color: HexColor('#7E7E7E'),
-                              fontFamily: 'OpenSans'),
-                        ),
+                      : (lang == 'sw')
+                          ? Text(
+                              parseHtmlString(HomeCubit.get(context)
+                                  .contactModel
+                                  .data!
+                                  .descriptionKr!),
+                              style: TextStyle(
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            )
+                          : Text(
+                              parseHtmlString(HomeCubit.get(context)
+                                  .contactModel
+                                  .data!
+                                  .descriptionAr!),
+                              style: TextStyle(
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            ),
                 ),
                 Text(
                   LocaleKeys.Contact_Us.tr(),

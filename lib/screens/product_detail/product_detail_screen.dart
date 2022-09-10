@@ -251,70 +251,71 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
             height: 4.h,
           ),
-          Text(
-            LocaleKeys.Select_Color.tr(),
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.w600,
-              color: HexColor('#515C6F'),
-              fontSize: 10.sp,
-            ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          (widget.details.color != null)
-              ? Container(
-                  height: 10.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => Container(
-                      height: 10.h,
-                      width: 10.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: HexColor(
-                          widget.details.color[index].toString(),
-                        ),
-                      ),
-                    ),
-                    separatorBuilder: (context, index) => SizedBox(
-                      width: 15,
-                    ),
-                    itemCount: (widget.details.color.length),
-                  ),
-                )
-              : Container(),
-          SizedBox(
-            height: 1.h,
-          ),
-          Text(
-            'اختر الحجم',
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.w600,
-              color: HexColor('#515C6F'),
-              fontSize: 10.sp,
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Container(
-            height: 5.h,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Container(
-                // height: 7.h,
-                width: 11.w,
-                child: Text(widget.details.size![index].toString()),
-              ),
-              separatorBuilder: (context, index) => SizedBox(
-                width: 10,
-              ),
-              itemCount: (widget.details.size.length),
-            ),
-          ),
+          // Text(
+          //   LocaleKeys.Select_Color.tr(),
+          //   style: TextStyle(
+          //     fontFamily: 'OpenSans',
+          //     fontWeight: FontWeight.w600,
+          //     color: HexColor('#515C6F'),
+          //     fontSize: 10.sp,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 2.h,
+          // ),
+          // (widget.details.color != null)
+          //     ? Container(
+          //         height: 10.h,
+          //         child: ListView.separated(
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) => Container(
+          //             height: 10.h,
+          //             width: 10.w,
+          //             decoration: BoxDecoration(
+          //               shape: BoxShape.circle,
+          //               color: HexColor(
+          //                 widget.details.color[index].toString(),
+          //               ),
+          //             ),
+          //           ),
+          //           separatorBuilder: (context, index) => SizedBox(
+          //             width: 15,
+          //           ),
+          //           itemCount: (widget.details.color.length),
+          //         ),
+          //       )
+          //     : Container(),
+          // SizedBox(
+          //   height: 1.h,
+          // ),
+          // Text(
+          //   'اختر الحجم',
+          //   style: TextStyle(
+          //     fontFamily: 'OpenSans',
+          //     fontWeight: FontWeight.w600,
+          //     color: HexColor('#515C6F'),
+          //     fontSize: 10.sp,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 1.h,
+          // ),
+          // Container(
+          //   height: 5.h,
+          //   child: ListView.separated(
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) => Container(
+          //       // height: 7.h,
+          //       width: 11.w,
+          //       child: Text(widget.details.size![index].toString()),
+          //     ),
+          //     separatorBuilder: (context, index) => SizedBox(
+          //       width: 10,
+          //     ),
+          //     itemCount: (widget.details.size.length),
+          //   ),
+          // ),
+
           SizedBox(
               height: 45.h,
               child: ProductDescription(
@@ -366,10 +367,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           //       itemCount: 5),
           // ),
 
-          SizedBox(
-            height: 3.h,
-          ),
-          buildSeeAllButton(),
+          // SizedBox(
+          //   height: 3.h,
+          // ),
+          // buildSeeAllButton(),
           SizedBox(
             height: 3.h,
           ),

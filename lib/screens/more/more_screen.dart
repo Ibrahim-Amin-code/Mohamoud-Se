@@ -210,10 +210,10 @@ class MoreScreen extends StatelessWidget {
                   imageIcon: 'assets/images/language.png')),
           myDivider(height: 1),
 
-          buildMenuCardItem(
-              title: LocaleKeys.Notifications.tr(),
-              imageIcon: 'assets/images/notification.png'),
-          myDivider(height: 1),
+          // buildMenuCardItem(
+          //     title: LocaleKeys.Notifications.tr(),
+          //     imageIcon: 'assets/images/notification.png'),
+          // myDivider(height: 1),
           InkWell(
             onTap: () {
               CacheHelper.clearData();

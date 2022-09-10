@@ -93,20 +93,35 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                               color: HexColor('#7E7E7E'),
                               fontFamily: 'OpenSans'),
                         )
-                      : Text(
-                          parseHtmlString(
-                            HomeCubit.get(context)
-                                .contactModel
-                                .data!
-                                .privacyAr!,
-                          ),
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 12.5.sp,
-                              fontWeight: FontWeight.w600,
-                              color: HexColor('#7E7E7E'),
-                              fontFamily: 'OpenSans'),
-                        ),
+                      : (lang == 'sw')
+                          ? Text(
+                              parseHtmlString(
+                                HomeCubit.get(context)
+                                    .contactModel
+                                    .data!
+                                    .privacyKr!,
+                              ),
+                              style: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            )
+                          : Text(
+                              parseHtmlString(
+                                HomeCubit.get(context)
+                                    .contactModel
+                                    .data!
+                                    .privacyAr!,
+                              ),
+                              style: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            ),
                 ),
                 // SizedBox(height: 10,),
               ],

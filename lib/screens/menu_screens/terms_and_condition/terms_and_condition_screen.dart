@@ -92,17 +92,35 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                               color: HexColor('#7E7E7E'),
                               fontFamily: 'OpenSans'),
                         )
-                      : Text(
-                          parseHtmlString(
-                            HomeCubit.get(context).contactModel.data!.termsAr!,
-                          ),
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 12.5.sp,
-                              fontWeight: FontWeight.w600,
-                              color: HexColor('#7E7E7E'),
-                              fontFamily: 'OpenSans'),
-                        ),
+                      : (lang == 'sw')
+                          ? Text(
+                              parseHtmlString(
+                                HomeCubit.get(context)
+                                    .contactModel
+                                    .data!
+                                    .termsKr!,
+                              ),
+                              style: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            )
+                          : Text(
+                              parseHtmlString(
+                                HomeCubit.get(context)
+                                    .contactModel
+                                    .data!
+                                    .termsAr!,
+                              ),
+                              style: TextStyle(
+                                  height: 1.5,
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor('#7E7E7E'),
+                                  fontFamily: 'OpenSans'),
+                            ),
                 ),
                 // SizedBox(height: 10,),
               ],

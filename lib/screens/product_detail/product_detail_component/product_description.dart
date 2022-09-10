@@ -13,8 +13,8 @@ class ProductDescription extends StatefulWidget {
 class _ProductDescriptionState extends State<ProductDescription> {
   List<String> text = [
     "Description",
-    "Specification",
-    "Additional Info",
+    // "Specification",
+    // "Additional Info",
   ];
   late PageController pageController;
 
@@ -60,10 +60,10 @@ class _ProductDescriptionState extends State<ProductDescription> {
           children:
               List.generate(text.length, (index) => buildDot(index: index)),
         ),
-        spaceH(20),
+        // spaceH(20),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 35.h,
+          height: 30.h,
           // color: Colors.red,
           child: PageView.builder(
               itemCount: text.length,

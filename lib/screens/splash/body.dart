@@ -12,8 +12,8 @@ class SplashBody extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Container(
-            height: 200,
-            width: 200,
+            height: 300,
+            width: 300,
             // decoration:  BoxDecoration(
             //   gradient: LinearGradient(
             //       colors: [HexColor('#40A2A6'),HexColor('#4CB8BA')]),
@@ -23,14 +23,8 @@ class SplashBody extends StatelessWidget {
             child: Center(
                 child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                'M',
-                style: headingStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 80,
-                  fontFamily: 'Satisfy',
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Image.asset(
+                'assets/images/This-01.png',
               ),
             )),
           ),
