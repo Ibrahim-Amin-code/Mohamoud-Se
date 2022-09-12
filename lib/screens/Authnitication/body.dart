@@ -187,19 +187,28 @@ class _AuthniticationBodyState extends State<AuthniticationBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Center(
+            //   child: Text(
+            //     'M',
+            //     style: headingStyle.copyWith(
+            //       color: Colors.white,
+            //       fontSize: 50,
+            //       fontFamily: 'Satisfy',
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
             Center(
-              child: Text(
-                'M',
-                style: headingStyle.copyWith(
-                  color: Colors.white,
-                  fontSize: 50,
-                  fontFamily: 'Satisfy',
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Image.asset(
+                'assets/images/This-01.png',
+                width: 150,
+                height: 220,
+                fit: BoxFit.cover,
               ),
             ),
+
             SizedBox(
-              height: 8.h,
+              height: 6.h,
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
