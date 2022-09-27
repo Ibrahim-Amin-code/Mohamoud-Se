@@ -16,6 +16,7 @@ import 'package:nib_app/screens/my_orders/cubit/cubit.dart';
 import 'package:nib_app/screens/my_orders/cubit/states.dart';
 import 'package:nib_app/screens/my_orders/orderSuccess/orderSuccess.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: use_key_in_widget_constructors
 class PaymentScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  // WebViewC
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -33,14 +35,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
       children: [
-        paymentTypeSelection(),
+        // paymentTypeSelection(),
         spaceH(6.h),
         BlocConsumer<OrderCubit, OrderState>(
           listener: (context, state) {
             // HomeCubit.get(context).cart = [];
             if (state is SendOrderSuccessState) {
               HomeCubit.get(context).cart.clear();
+
               OrderCubit.get(context).getOrders();
+              // ignore: prefer_const_constructors
+
               Navigator.push(
                   context,
                   MaterialPageRoute(

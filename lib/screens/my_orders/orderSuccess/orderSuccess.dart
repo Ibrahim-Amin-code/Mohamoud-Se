@@ -1,66 +1,26 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nib_app/generated/locale_keys.dart';
 import 'package:nib_app/screens/components/constants.dart';
 import 'package:nib_app/screens/layout/layout_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 // ignore: use_key_in_widget_constructors
 class OrderSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
     return Scaffold(
-      body: ListView(
-        primary: true,
-        shrinkWrap: true,
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 3.w),
-        children: [
-          Center(
-            child: Text(LocaleKeys.THANK_YOU.tr(),
-                style: headingStyle.copyWith(
-                    fontSize: 30.sp,
-                    fontWeight: FontWeight.bold,
-                    color: HexColor('#AA1050'))),
-          ),
-          spaceH(7),
-          Center(
-            child: Text(LocaleKeys.FOR_YOUR_ORDER.tr(),
-                style: headingStyle.copyWith(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w700,
-                    color: HexColor("#333333"))),
-          ),
-          spaceH(7),
-          Center(
-            child: Text("${LocaleKeys.Order_Number.tr()}: #SC124535",
-                style: headingStyle.copyWith(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: HexColor("#333333"))),
-          ),
-          spaceH(6.h),
-          Image.asset("assets/images/thank.png"),
-          spaceH(20),
-          Center(
-            child: Text("ESTIMATED DELIVERY",
-                style: headingStyle.copyWith(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w700,
-                    color: HexColor("#B59945"))),
-          ),
-          spaceH(10),
-          Center(
-            child: Text("Apr 30, 2020",
-                style: headingStyle.copyWith(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400,
-                    color: HexColor("#333333"))),
-          ),
-          spaceH(20),
-          trackOrderButton(context)
-        ],
+        // ignore: prefer_const_constructors
+        body: Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: WebView(
+        initialUrl: 'http://beautiheath.com/sub/eshop/get-checkout/',
+        javascriptMode: JavascriptMode.unrestricted,
       ),
-    );
+    ));
   }
 
   trackOrderButton(context) {
