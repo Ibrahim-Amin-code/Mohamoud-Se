@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nib_app/generated/locale_keys.dart';
+import 'package:nib_app/main.dart';
 
 import 'package:nib_app/screens/cart/componnent/constant.dart';
 import 'package:nib_app/screens/checkout/address/userAddresses.dart';
@@ -17,6 +18,8 @@ import 'package:nib_app/screens/my_orders/cubit/states.dart';
 import 'package:nib_app/screens/my_orders/orderSuccess/orderSuccess.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../network/cache/cache_helper.dart';
 
 // ignore: use_key_in_widget_constructors
 class PaymentScreen extends StatefulWidget {
@@ -35,21 +38,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 3.w),
       children: [
-        // paymentTypeSelection(),
         spaceH(6.h),
         BlocConsumer<OrderCubit, OrderState>(
           listener: (context, state) {
-            // HomeCubit.get(context).cart = [];
             if (state is SendOrderSuccessState) {
               HomeCubit.get(context).cart.clear();
 
               OrderCubit.get(context).getOrders();
               // ignore: prefer_const_constructors
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => OrderSuccessScreen()));
+              print(
+                  'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
             } else if (state is SendOrderErrorState) {
               Fluttertoast.showToast(
                   msg: 'Order Faild... Please Try Again Later',

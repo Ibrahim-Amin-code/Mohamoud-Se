@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:dio/dio.dart';
@@ -8,12 +9,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/main.dart';
 import 'package:nib_app/models/get_address_model.dart';
 import 'package:nib_app/models/get_order_model.dart';
+import 'package:nib_app/models/send_order_model.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
 import 'package:nib_app/network/dio/dio_helper.dart';
 import 'package:nib_app/network/end_points.dart';
 import 'package:nib_app/screens/cart/componnent/body.dart';
 import 'package:nib_app/screens/layout/cubit/cubit.dart';
 import 'package:nib_app/screens/my_orders/cubit/states.dart';
+import 'package:nib_app/screens/my_orders/orderSuccess/orderSuccess.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderCubit extends Cubit<OrderState> {
@@ -39,7 +42,6 @@ class OrderCubit extends Cubit<OrderState> {
       getOrderModel = GetOrderModel.fromJson(json.decode(response.body));
       var data = json.decode(response.body);
       orders.addAll(data['data']);
-
       print(
           'wishListModel----------------------------------------------------------------------------------' +
               response.body);
@@ -51,6 +53,8 @@ class OrderCubit extends Cubit<OrderState> {
     }
   }
 
+  SendOrderModel sendOrderModel = SendOrderModel();
+
   void sendOrder({
     required String addressId,
     required String paymentMethod,
@@ -60,7 +64,6 @@ class OrderCubit extends Cubit<OrderState> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final String lang = preferences.getString('lang') ?? 'en';
     String token = await CacheHelper.getData(key: 'token');
-    // final String buyerId = preferences.getString('userID').toString();
     List<Map<String, dynamic>> productsOptions = [];
     productId.forEach((element) {
       productsOptions.add({
@@ -77,7 +80,6 @@ class OrderCubit extends Cubit<OrderState> {
 
     var formData = FormData.fromMap({
       'lang': lang,
-      // 'buyerId': buyerId,
       'addressId': addressId,
       'payment_method': paymentMethod,
       'productId': productsOptions,
@@ -86,14 +88,23 @@ class OrderCubit extends Cubit<OrderState> {
     emit(SendOrderLoadingState());
     DioHelper.postOrderData(url: SendOrder, data: formData, token: token)
         .then((value) {
-      print('FFFFFFFFFFFFFFFFFFFFFFggggggggggggggggggggggg');
-
-      print(addressId +
-          'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
-      print('value.dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+      sendOrderModel = SendOrderModel.fromJson(value.data);
 
       print(value.data);
+      // CacheHelper.saveData(
+      //     key: 'orderId', value: sendOrderModel.data!.id.toString());
       emit(SendOrderSuccessState());
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => OrderSuccessScreen(
+                    orderId: OrderCubit.get(context)
+                        .sendOrderModel
+                        .data
+                        ?.id
+                        .toString(),
+                    token: token,
+                  )));
     }).catchError((error) {
       print(error.toString());
       emit(SendOrderErrorState(error.toString()));
@@ -104,7 +115,6 @@ class OrderCubit extends Cubit<OrderState> {
     required String orderId,
   }) async {
     emit(DeleteOrderLoadingState());
-
     DioHelper.postData(
             url: DeleteOrder,
             data: {
