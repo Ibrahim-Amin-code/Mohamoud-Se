@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
@@ -69,7 +71,7 @@ class _AuthniticationScreenState extends State<AuthniticationScreen> {
 
   @override
   void initState() {
-    this.getScreen();
+    getScreen();
     _getUserLocation();
     super.initState();
   }
@@ -78,10 +80,10 @@ class _AuthniticationScreenState extends State<AuthniticationScreen> {
   Widget build(BuildContext context) {
     if (isLogin) {
       print(AuthniticationScreen.token);
-      return LayoutScreen(index: 2);
+      return const LayoutScreen(index: 2);
     } else {
       print(AuthniticationScreen.token);
-      return Authniticate();
+      return const Authniticate();
     }
   }
 }
@@ -98,10 +100,9 @@ class Authniticate extends StatelessWidget {
         // gradient:
         //     LinearGradient(colors: [HexColor("#40A2A6"), HexColor("#4CB8BA")]),
       ),
-      // ignore: prefer_const_constructors
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: Colors.transparent,
-        body: const AuthniticationBody(),
+        body: AuthniticationBody(),
       ),
     );
   }

@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/generated/locale_keys.dart';
 import 'package:nib_app/screens/cart/componnent/constant.dart';
-import 'package:nib_app/screens/checkout/address/address.dart';
 import 'package:nib_app/screens/checkout/checkout_cubit/checkout_cubit.dart';
 import 'package:nib_app/screens/checkout/checkout_cubit/states.dart';
 import 'package:nib_app/screens/checkout/componnent/body.dart';
-import 'package:nib_app/screens/checkout/placeOrder.dart';
 import 'package:nib_app/screens/components/constants.dart';
 import 'package:nib_app/screens/editAddress/editAddress.dart';
 import 'package:nib_app/screens/layout/cubit/cubit.dart';
@@ -34,12 +32,14 @@ class _UserAddressState extends State<UserAddress> {
     return BlocConsumer<CheckoutCubit, CheckoutState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              ConditionalBuilder(
-                condition: state is! CheckoutLoadingState,
-                builder: (context) => ListView.separated(
+        return ConditionalBuilder(
+          condition: CheckoutCubit.get(context).getAddressModel != null,
+          fallback: (context) =>
+              const Center(child: CircularProgressIndicator()),
+          builder: (context) => SingleChildScrollView(
+            child: Column(
+              children: [
+                ListView.separated(
                     primary: false,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
@@ -66,7 +66,7 @@ class _UserAddressState extends State<UserAddress> {
                               children: [
                                 Text(
                                   CheckoutCubit.get(context)
-                                      .getAddressModel
+                                      .getAddressModel!
                                       .data![index]
                                       .addressName
                                       .toString(),
@@ -88,31 +88,31 @@ class _UserAddressState extends State<UserAddress> {
                                       setState(() {
                                         UserAddress.name =
                                             CheckoutCubit.get(context)
-                                                .getAddressModel
+                                                .getAddressModel!
                                                 .data![index]
                                                 .fullName
                                                 .toString();
                                         UserAddress.addressTitle =
                                             CheckoutCubit.get(context)
-                                                .getAddressModel
+                                                .getAddressModel!
                                                 .data![index]
                                                 .addressName
                                                 .toString();
                                         UserAddress.city =
                                             CheckoutCubit.get(context)
-                                                .getAddressModel
+                                                .getAddressModel!
                                                 .data![index]
                                                 .city
                                                 .toString();
                                         UserAddress.state =
                                             CheckoutCubit.get(context)
-                                                .getAddressModel
+                                                .getAddressModel!
                                                 .data![index]
                                                 .state
                                                 .toString();
                                         UserAddress.addressId =
                                             CheckoutCubit.get(context)
-                                                .getAddressModel
+                                                .getAddressModel!
                                                 .data![index]
                                                 .id
                                                 .toString();
@@ -122,7 +122,7 @@ class _UserAddressState extends State<UserAddress> {
                             ),
                             Text(
                               CheckoutCubit.get(context)
-                                  .getAddressModel
+                                  .getAddressModel!
                                   .data![index]
                                   .fullName
                                   .toString(),
@@ -136,7 +136,7 @@ class _UserAddressState extends State<UserAddress> {
                             ),
                             Text(
                               CheckoutCubit.get(context)
-                                  .getAddressModel
+                                  .getAddressModel!
                                   .data![index]
                                   .city
                                   .toString(),
@@ -154,7 +154,7 @@ class _UserAddressState extends State<UserAddress> {
                               children: [
                                 Text(
                                   CheckoutCubit.get(context)
-                                      .getAddressModel
+                                      .getAddressModel!
                                       .data![index]
                                       .state
                                       .toString(),
@@ -174,7 +174,7 @@ class _UserAddressState extends State<UserAddress> {
                                                     EditAddressScreen(
                                                       id: CheckoutCubit.get(
                                                               context)
-                                                          .getAddressModel
+                                                          .getAddressModel!
                                                           .data![index]
                                                           .id
                                                           .toString(),
@@ -217,7 +217,7 @@ class _UserAddressState extends State<UserAddress> {
                                         CheckoutCubit.get(context)
                                             .deleteAddress(
                                           addressId: CheckoutCubit.get(context)
-                                              .getAddressModel
+                                              .getAddressModel!
                                               .data![index]
                                               .id
                                               .toString(),
@@ -260,28 +260,26 @@ class _UserAddressState extends State<UserAddress> {
                     },
                     separatorBuilder: (context, index) => spaceH(10),
                     itemCount: CheckoutCubit.get(context)
-                        .getAddressModel
+                        .getAddressModel!
                         .data!
                         .length),
-                fallback: (context) =>
-                    Center(child: CircularProgressIndicator()),
-              ),
-              spaceH(15),
-              (CheckoutCubit.get(context).getAddressModel.data!.isNotEmpty)
-                  ? placeOrderButton(
-                      context: context,
-                      title: LocaleKeys.Next.tr(),
-                      press: () {
-                        tabController!.animateTo(1,
-                            duration: const Duration(
-                              milliseconds: 500,
-                            ),
-                            curve: Curves.easeInOut);
-                      })
-                  : Text(
-                      LocaleKeys.Add_Address.tr(),
-                    )
-            ],
+                spaceH(15),
+                (CheckoutCubit.get(context).getAddressModel!.data!.isNotEmpty)
+                    ? placeOrderButton(
+                        context: context,
+                        title: LocaleKeys.Next.tr(),
+                        press: () {
+                          tabController!.animateTo(1,
+                              duration: const Duration(
+                                milliseconds: 500,
+                              ),
+                              curve: Curves.easeInOut);
+                        })
+                    : Text(
+                        LocaleKeys.Add_Address.tr(),
+                      )
+              ],
+            ),
           ),
         );
       },

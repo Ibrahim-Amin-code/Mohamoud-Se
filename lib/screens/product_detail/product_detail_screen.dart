@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/generated/locale_keys.dart';
 import 'package:nib_app/main.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
+import 'package:nib_app/screens/Authnitication/auth.dart';
 import 'package:nib_app/screens/cart/cart.dart';
 import 'package:nib_app/screens/home/home_component/home_component.dart';
 import 'package:nib_app/screens/home/home_cubit/home_cubit.dart';
@@ -444,10 +445,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           InkWell(
               onTap: () {
-                HomeCubit.get(context).addToWishList(id: id);
+                if (prefs.getString("token") != null) {
+                  HomeCubit.get(context).addToWishList(id: id);
+                } else {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AuthniticationScreen()),
+                      (route) => false);
+                }
               },
               child:
                   // (widget.details.wishlist == false)?

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:nib_app/screens/Authnitication/auth.dart';
 
 class DioHelper {
   static late Dio dio;
@@ -25,7 +24,7 @@ class DioHelper {
             // will not throw errors
             validateStatus: (status) => true,
             headers: {
-              'Authorization': token,
+              'Authorization': (token != null) ? "Bearer" + token : "",
               //Bearer
             }));
   }
@@ -50,7 +49,7 @@ class DioHelper {
         queryParameters: query ?? null,
         data: data,
         options: Options(headers: {
-          'Authorization': token,
+          'Authorization': (token != null) ? "Bearer" + token : "",
         }));
   }
 
@@ -68,7 +67,7 @@ class DioHelper {
             // will not throw errors
             validateStatus: (status) => true,
             headers: {
-              'Authorization': token,
+              'Authorization': "Bearer" + token!,
             }));
   }
 
@@ -80,7 +79,7 @@ class DioHelper {
     return dio.post(url,
         queryParameters: query ?? null,
         options: Options(headers: {
-          'Authorization': token,
+          'Authorization': "Bearer" + token!,
         }));
   }
 
@@ -94,7 +93,7 @@ class DioHelper {
         queryParameters: query ?? null,
         data: data,
         options: Options(headers: {
-          'Authorization': token,
+          'Authorization': "Bearer" + token!,
         }));
   }
 
@@ -108,7 +107,7 @@ class DioHelper {
         queryParameters: query ?? null,
         data: data,
         options: Options(headers: {
-          'Authorization': token,
+          'Authorization': "Bearer" + token!,
         }));
   }
 
@@ -122,7 +121,7 @@ class DioHelper {
         queryParameters: query ?? null,
         data: data,
         options: Options(headers: {
-          'Authorization': token,
+          'Authorization': "Bearer" + token!,
         }));
   }
 }

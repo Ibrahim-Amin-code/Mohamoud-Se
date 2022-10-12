@@ -28,8 +28,7 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
-        if (LoginCubit.get(context).loginModel.status == true) {
-          // print(LoginCubit.get(context).loginModel.data!.token);
+        if (state is LoginSuccessState) {
           Fluttertoast.showToast(
               msg: LoginCubit.get(context).loginModel.msg.toString(),
               toastLength: Toast.LENGTH_LONG,
@@ -43,7 +42,7 @@ class _SignInFormState extends State<SignInForm> {
               MaterialPageRoute(
                   builder: (context) => const LayoutScreen(index: 2)),
               (route) => false);
-        } else if (LoginCubit.get(context).loginModel.status == false) {
+        } else if (state is LoginErrorState) {
           Fluttertoast.showToast(
               msg: LoginCubit.get(context).loginModel.msg.toString(),
               toastLength: Toast.LENGTH_LONG,

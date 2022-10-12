@@ -25,8 +25,7 @@ class _ForgetPassBodyState extends State<ForgetPassBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ForgetPasswordCubit, ForgetPasswordStates>(
       listener: (context, state) {
-        if (ForgetPasswordCubit.get(context).status == true &&
-            state is ForgetPasswordSuccessState) {
+        if (state is ForgetPasswordSuccessState) {
           Fluttertoast.showToast(
               msg: ForgetPasswordCubit.get(context).message.toString(),
               toastLength: Toast.LENGTH_LONG,
@@ -36,9 +35,8 @@ class _ForgetPassBodyState extends State<ForgetPassBody> {
               textColor: Colors.white,
               fontSize: 16.0);
           Navigator.push(context,
-              MaterialPageRoute(builder: (_) => ResetPasswordScreen()));
-        } else if (ForgetPasswordCubit.get(context).status == false &&
-            state is ForgetPasswordSuccessState) {
+              MaterialPageRoute(builder: (_) => const ResetPasswordScreen()));
+        } else if (state is ForgetPasswordErrorState) {
           Fluttertoast.showToast(
               msg: ForgetPasswordCubit.get(context).message.toString(),
               toastLength: Toast.LENGTH_LONG,
@@ -60,7 +58,15 @@ class _ForgetPassBodyState extends State<ForgetPassBody> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Center(child: Image.asset('assets/images/logo.png')),
+                Center(
+                  child: Image.asset(
+                    'assets/images/This-01.png',
+                    color: Colors.white,
+                    width: 150,
+                    height: 220,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 spaceH(40),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 4.w),

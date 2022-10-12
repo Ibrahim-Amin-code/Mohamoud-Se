@@ -141,7 +141,7 @@ class HomeCubit extends Cubit<HomeState> {
         "productId": id,
         "quantity": quantity,
       },
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       emit(AddToCartSuccessState());
       print('AddToCart--------------------------------------------' +
@@ -172,7 +172,7 @@ class HomeCubit extends Cubit<HomeState> {
       data: {
         "productId": id,
       },
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       emit(RemoveFromCartSuccessState());
       print('RemoveFromCart--------------------------------------------' +
@@ -198,7 +198,7 @@ class HomeCubit extends Cubit<HomeState> {
     String token = await CacheHelper.getData(key: 'token') ?? '';
     DioHelper.getData(
       url: GetCarts,
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       cart.clear();
       cart.addAll(value.data!['data']);
@@ -234,7 +234,7 @@ class HomeCubit extends Cubit<HomeState> {
   }) async {
     emit(ContactUsLoadingState());
     String token = await CacheHelper.getData(key: 'token');
-    DioHelper.postContactUsData(url: ContactUs, token: 'Bearer $token', data: {
+    DioHelper.postContactUsData(url: ContactUs, token: token, data: {
       'name': name,
       'subject': subject,
       'phone': phone,
@@ -257,28 +257,33 @@ class HomeCubit extends Cubit<HomeState> {
   }) async {
     emit(WishListLoadingState());
     String token = await CacheHelper.getData(key: 'token');
-    DioHelper.postWishListData(url: wishlists, token: 'Bearer $token', query: {
-      'productId': '$id',
+    DioHelper.postWishListData(url: wishlists, token: token, query: {
+      'productId': id,
     }).then((value) {
       if (value.data['msg'] == 'added') {
-        isFavourite["$id"] = true;
+        isFavourite[id] = true;
+        Fluttertoast.showToast(
+          msg: "تم اضافة المنتج الي المضلة",
+          textColor: Colors.white,
+          backgroundColor: Colors.green,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+        emit(WishListSuccessState());
       } else {
-        isFavourite["$id"] = false;
+        Fluttertoast.showToast(
+          msg: "تم حذف المنتج من المضلة",
+          textColor: Colors.white,
+          backgroundColor: Colors.red,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+        isFavourite[id] = false;
+        emit(WishListSuccessState());
       }
-
       msg = value.data['msg'];
 
-      // Fluttertoast.showToast(
-      //     msg: msg.toString(),
-      //     toastLength: Toast.LENGTH_LONG,
-      //     gravity: ToastGravity.CENTER,
-      //     timeInSecForIosWeb: 1,
-      //     backgroundColor: HexColor("#B59945"),
-      //     textColor: HexColor('#727C8E'),
-      //     fontSize: 16.0);
-      getWishList();
       print('-----------------------------------------------${msg.toString()}');
-      emit(WishListSuccessState());
     }).catchError((error) {
       emit(WishListErrorState(error.toString()));
       print('error------------------------------------------------------' +
@@ -352,7 +357,7 @@ class HomeCubit extends Cubit<HomeState> {
         'date': date,
         'lang': lang,
       },
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       addReviewMsg = value.data['msg'];
       Fluttertoast.showToast(
@@ -382,7 +387,7 @@ class HomeCubit extends Cubit<HomeState> {
     DioHelper.getData(
       url: AllReviews,
       query: {'productId': id},
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       classReviewsModel = ClassReviewsModel.fromJson(value.data);
       print(value.data);

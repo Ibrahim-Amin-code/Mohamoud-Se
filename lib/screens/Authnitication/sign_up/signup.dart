@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:nib_app/generated/locale_keys.dart';
-import 'package:nib_app/screens/Authnitication/pin_code/pin_code_screen.dart';
-import 'package:nib_app/screens/Authnitication/sign_in/signIn_form.dart';
+import 'package:nib_app/screens/Authnitication/auth.dart';
+import 'package:nib_app/screens/Authnitication/body.dart';
 import 'package:nib_app/screens/Authnitication/sign_up/signup_cubit/cubit.dart';
 import 'package:nib_app/screens/Authnitication/sign_up/signup_cubit/states.dart';
 import 'package:nib_app/screens/components/constants.dart';
 import 'package:nib_app/screens/components/default_button.dart';
 import 'package:sizer/sizer.dart';
-
-import '../auth.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -88,28 +85,29 @@ class _SignupFormState extends State<SignupForm> {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is RegisterSuccessState) {
-            if (RegisterCubit.get(context).data['status'] == true) {
-              print(
-                  'signiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin');
-              Fluttertoast.showToast(
-                  msg: RegisterCubit.get(context).data['msg'].toString(),
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-              // _verifyPhone(context);
-            } else {
-              Fluttertoast.showToast(
-                  msg: RegisterCubit.get(context).data['msg'].toString(),
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            }
+            Fluttertoast.showToast(
+                msg: RegisterCubit.get(context).data['msg'].toString(),
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0);
+            currentIndex = 0;
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AuthniticationScreen()),
+                (route) => false);
+          } else if (state is RegisterErrorState) {
+            Fluttertoast.showToast(
+                msg: RegisterCubit.get(context).data['msg'].toString(),
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.red,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         },
         builder: (context, state) {

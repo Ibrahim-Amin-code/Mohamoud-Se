@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 class SendOrderModel {
   bool? status;
   String? msg;
@@ -14,26 +16,16 @@ class SendOrderModel {
 
 class Data {
   int? buyerId;
-  int? addressId;
+  var addressId;
   String? paymentMethod;
-  String? updatedAt;
-  String? createdAt;
-  late int id;
+  int? id;
 
-  Data(
-      {this.buyerId,
-      this.addressId,
-      this.paymentMethod,
-      this.updatedAt,
-      this.createdAt,
-      required this.id});
+  Data({this.buyerId, this.addressId, this.paymentMethod, required this.id});
 
   Data.fromJson(Map<String, dynamic> json) {
     buyerId = json['buyerId'];
     addressId = json['addressId'];
     paymentMethod = json['payment_method'];
-    updatedAt = json['updated_at'];
-    createdAt = json['created_at'];
     id = json['id'];
   }
 }

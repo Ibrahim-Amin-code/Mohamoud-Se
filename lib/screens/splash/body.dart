@@ -11,7 +11,7 @@ class SplashBody extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.center,
-          child: Container(
+          child: SizedBox(
             height: 300,
             width: 300,
             // decoration:  BoxDecoration(
@@ -25,6 +25,7 @@ class SplashBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Image.asset(
                 'assets/images/This-01.png',
+                color: Colors.white,
               ),
             )),
           ),

@@ -67,14 +67,19 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // ignore: prefer_const_constructors
+        appBar: AppBar(
+          toolbarHeight: 0.0,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: Padding(
-      padding: const EdgeInsets.only(top: 50),
-      child: WebView(
-        initialUrl:
-            'http://beautiheath.com/sub/eshop/get-checkout/${widget.token}/${widget.orderId}/',
-        javascriptMode: JavascriptMode.unrestricted,
-      ),
-    ));
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
+          child: WebView(
+            initialUrl:
+                'http://beautiheath.com/sub/eshop/get-checkout/${widget.token}/${widget.orderId}/',
+            javascriptMode: JavascriptMode.unrestricted,
+          ),
+        ));
   }
 }

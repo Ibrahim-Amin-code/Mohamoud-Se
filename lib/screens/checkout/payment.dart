@@ -3,23 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nib_app/generated/locale_keys.dart';
-import 'package:nib_app/main.dart';
-
 import 'package:nib_app/screens/cart/componnent/constant.dart';
 import 'package:nib_app/screens/checkout/address/userAddresses.dart';
-import 'package:nib_app/screens/checkout/placeOrder.dart';
-import 'package:nib_app/screens/checkout/visa.dart';
 import 'package:nib_app/screens/components/constants.dart';
 import 'package:nib_app/screens/home/home_cubit/home_cubit.dart';
 import 'package:nib_app/screens/layout/cubit/cubit.dart';
 import 'package:nib_app/screens/layout/cubit/states.dart';
 import 'package:nib_app/screens/my_orders/cubit/cubit.dart';
 import 'package:nib_app/screens/my_orders/cubit/states.dart';
-import 'package:nib_app/screens/my_orders/orderSuccess/orderSuccess.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../network/cache/cache_helper.dart';
 
 // ignore: use_key_in_widget_constructors
 class PaymentScreen extends StatefulWidget {
@@ -43,12 +35,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           listener: (context, state) {
             if (state is SendOrderSuccessState) {
               HomeCubit.get(context).cart.clear();
-
               OrderCubit.get(context).getOrders();
-              // ignore: prefer_const_constructors
-
-              print(
-                  'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
             } else if (state is SendOrderErrorState) {
               Fluttertoast.showToast(
                   msg: 'Order Faild... Please Try Again Later',
@@ -61,17 +48,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             }
           },
           builder: (context, state) {
-            return placeOrderButton(
-                context: context,
-                title: LocaleKeys.CONTINUE_PAYMENT.tr(),
-                press: () {
-                  OrderCubit.get(context).sendOrder(
-                    context: context,
-                    addressId: UserAddress.addressId.toString(),
-                    paymentMethod: PaymentScreen.paymentMethod.toString(),
-                    productId: HomeCubit.get(context).cart,
-                  );
-                });
+            return paymentTypeSelection();
           },
         )
       ],
@@ -135,58 +112,68 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         setState(() {
                           PaymentScreen.paymentMethod = 'cash_on_delivery';
                         });
+                        OrderCubit.get(context).sendOrder(
+                          context: context,
+                          addressId: UserAddress.addressId.toString(),
+                          paymentMethod: PaymentScreen.paymentMethod.toString(),
+                          productId: HomeCubit.get(context).cart,
+                        );
                       })
                 ],
               ),
-              // spaceH(10),
-              // Divider(
-              //   thickness: 1,
-              //   color: HexColor("#E3E1E1"),
-              // ),
-              // spaceH(10),
-              // Row(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     Image.asset("assets/images/Forma 1 copy 12.png"),
-              //     spaceW(10),
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       mainAxisSize: MainAxisSize.min,
-              //       children: [
-              //         Text(
-              //           LocaleKeys.Visa.tr(),
-              //           style: headingStyle.copyWith(
-              //               fontWeight: FontWeight.w500,
-              //               fontSize: 11.sp,
-              //               color: HexColor("#2D2C2C")),
-              //         ),
-              //         spaceH(5),
-              //         Text(
-              //           ".... ...... ...... 567",
-              //           style: headingStyle.copyWith(
-              //               fontWeight: FontWeight.w500,
-              //               fontSize: 9.sp,
-              //               color: HexColor("#6A737C").withOpacity(0.6)),
-              //         ),
-              //       ],
-              //     ),
-              //     const Spacer(),
-              // Radio(
-              //     value: 1,
-              //     groupValue: AppCubit.get(context).selectedVisa,
-              //     onChanged: (value) {
-              //       AppCubit.get(context).selectedVisa = 1;
-              //       AppCubit.get(context).visaSelection(selected: 1);
-              //       AppCubit.get(context).selectedCash = null;
-              //       AppCubit.get(context).cashSelection(selected: null);
-              //       PaymentScreen.paymentMethod = 'master_card';
-              //       Navigator.pushReplacement(
-              //           context,
-              //           MaterialPageRoute(
-              //               builder: (context) => VisaScreen()));
-              //     })
-              //   ],
-              // ),
+              spaceH(10),
+              Divider(
+                thickness: 1,
+                color: HexColor("#E3E1E1"),
+              ),
+              spaceH(10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset("assets/images/Forma 1 copy 12.png"),
+                  spaceW(10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        LocaleKeys.Visa.tr(),
+                        style: headingStyle.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 11.sp,
+                            color: HexColor("#2D2C2C")),
+                      ),
+                      spaceH(5),
+                      Text(
+                        ".... ...... ...... 567",
+                        style: headingStyle.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 9.sp,
+                            color: HexColor("#6A737C").withOpacity(0.6)),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Radio(
+                      value: 1,
+                      groupValue: AppCubit.get(context).selectedVisa,
+                      onChanged: (value) {
+                        AppCubit.get(context).selectedVisa = 1;
+                        AppCubit.get(context).visaSelection(selected: 1);
+                        AppCubit.get(context).selectedCash = null;
+                        AppCubit.get(context).cashSelection(selected: null);
+                        setState(() {
+                          PaymentScreen.paymentMethod = 'master_card';
+                        });
+                        OrderCubit.get(context).sendOrder(
+                          context: context,
+                          addressId: UserAddress.addressId.toString(),
+                          paymentMethod: PaymentScreen.paymentMethod.toString(),
+                          productId: HomeCubit.get(context).cart,
+                        );
+                      })
+                ],
+              ),
             ],
           ),
         );

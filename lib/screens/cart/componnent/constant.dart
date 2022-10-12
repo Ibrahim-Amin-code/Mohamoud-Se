@@ -56,8 +56,6 @@ placeOrderButton(
               spreadRadius: 3,
               blurRadius: 3)
         ],
-        // gradient: LinearGradient(
-        //     colors: [HexColor("#FF9000"), HexColor("#FFBE03")])
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

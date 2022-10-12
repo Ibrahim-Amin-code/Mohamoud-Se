@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nib_app/generated/locale_keys.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
+import 'package:nib_app/screens/Authnitication/auth.dart';
 import 'package:nib_app/screens/home/home_component/home_component.dart';
 import 'package:nib_app/screens/home/home_cubit/home_cubit.dart';
 import 'package:nib_app/screens/home/home_cubit/states.dart';
@@ -198,7 +200,16 @@ Widget buildSeeAllProductsItem({
                   builder: (context, state) {
                     return InkWell(
                         onTap: () {
-                          HomeCubit.get(context).addToWishList(id: id);
+                          if (prefs.getString("token") != null) {
+                            HomeCubit.get(context).addToWishList(id: id);
+                          } else {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AuthniticationScreen()),
+                                (route) => false);
+                          }
                         },
                         child:
                             // ignore: unrelated_type_equality_checks
@@ -215,33 +226,56 @@ Widget buildSeeAllProductsItem({
                                   ));
                   },
                 ),
-                Spacer(),
-                InkWell(
-                  onTap: () {
-                    HomeCubit.get(context).addToCart(id: id, quantity: 1);
+                const Spacer(),
+                BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {
+                    if (state is AddToCartSuccessState) {
+                      Fluttertoast.showToast(
+                        msg: "تم اضافه المنتج الي عربة التسوق",
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        gravity: ToastGravity.CENTER,
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
                   },
-                  child: Container(
-                    width: 28.w,
-                    height: 4.h,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    color: HexColor('#AA1050'),
-                    child: Row(
-                      children: [
-                        Image.asset('assets/images/Cart.png'),
-                        SizedBox(
-                          width: 10,
+                  builder: (context, state) {
+                    return InkWell(
+                      onTap: () {
+                        if (prefs.getString("token") != null) {
+                          HomeCubit.get(context).addToCart(id: id, quantity: 1);
+                        } else {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AuthniticationScreen()),
+                              (route) => false);
+                        }
+                      },
+                      child: Container(
+                        width: 28.w,
+                        height: 4.h,
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        color: HexColor('#AA1050'),
+                        child: Row(
+                          children: [
+                            Image.asset('assets/images/Cart.png'),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Add to Cart',
+                              style: TextStyle(
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'OpenSans',
+                                  color: HexColor('#FFFFFF')),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Add to Cart',
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'OpenSans',
-                              color: HexColor('#FFFFFF')),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

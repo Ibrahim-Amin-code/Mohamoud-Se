@@ -2,19 +2,17 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nib_app/main.dart';
-import 'package:nib_app/models/get_address_model.dart';
 import 'package:nib_app/models/get_order_model.dart';
 import 'package:nib_app/models/send_order_model.dart';
 import 'package:nib_app/network/cache/cache_helper.dart';
 import 'package:nib_app/network/dio/dio_helper.dart';
 import 'package:nib_app/network/end_points.dart';
-import 'package:nib_app/screens/cart/componnent/body.dart';
-import 'package:nib_app/screens/layout/cubit/cubit.dart';
+import 'package:nib_app/screens/layout/layout_screen.dart';
 import 'package:nib_app/screens/my_orders/cubit/states.dart';
 import 'package:nib_app/screens/my_orders/orderSuccess/orderSuccess.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,16 +61,17 @@ class OrderCubit extends Cubit<OrderState> {
   }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     final String lang = preferences.getString('lang') ?? 'en';
-    String token = await CacheHelper.getData(key: 'token');
+    final String token = prefs.getString('token').toString();
+    final String userID = prefs.getString('userID').toString();
     List<Map<String, dynamic>> productsOptions = [];
-    productId.forEach((element) {
+    for (var element in productId) {
       productsOptions.add({
         "id": element['id'],
-        "quantity": 2,
+        "quantity": 1,
         "currency": prefs.getString('price_k') ?? "\$",
         "price": element['price'],
       });
-    });
+    }
     // var product = json.encode(productsOptions);
     print('productttttttttttttttttttttttttttttttttttttttttttt');
 
@@ -80,6 +79,7 @@ class OrderCubit extends Cubit<OrderState> {
 
     var formData = FormData.fromMap({
       'lang': lang,
+      "buyerId": userID,
       'addressId': addressId,
       'payment_method': paymentMethod,
       'productId': productsOptions,
@@ -88,23 +88,45 @@ class OrderCubit extends Cubit<OrderState> {
     emit(SendOrderLoadingState());
     DioHelper.postOrderData(url: SendOrder, data: formData, token: token)
         .then((value) {
-      sendOrderModel = SendOrderModel.fromJson(value.data);
-
       print(value.data);
-      // CacheHelper.saveData(
-      //     key: 'orderId', value: sendOrderModel.data!.id.toString());
-      emit(SendOrderSuccessState());
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OrderSuccessScreen(
-                    orderId: OrderCubit.get(context)
-                        .sendOrderModel
-                        .data
-                        ?.id
-                        .toString(),
-                    token: token,
-                  )));
+      if (value.statusCode == 200) {
+        sendOrderModel = SendOrderModel.fromJson(value.data);
+        if (paymentMethod == "master_card") {
+          Fluttertoast.showToast(
+            msg: "تم ارسال طلبك بنجاح",
+            textColor: Colors.white,
+            backgroundColor: Colors.green,
+            gravity: ToastGravity.CENTER,
+            toastLength: Toast.LENGTH_SHORT,
+          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => OrderSuccessScreen(
+                        orderId: OrderCubit.get(context)
+                            .sendOrderModel
+                            .data
+                            ?.id
+                            .toString(),
+                        token: token,
+                      )));
+          emit(SendOrderSuccessState());
+        } else {
+          Fluttertoast.showToast(
+            msg: "تم ارسال طلبك بنجاح",
+            textColor: Colors.white,
+            backgroundColor: Colors.green,
+            gravity: ToastGravity.CENTER,
+            toastLength: Toast.LENGTH_SHORT,
+          );
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const LayoutScreen(index: 2)),
+              (route) => false);
+          emit(SendOrderSuccessState());
+        }
+      }
     }).catchError((error) {
       print(error.toString());
       emit(SendOrderErrorState(error.toString()));
@@ -131,33 +153,4 @@ class OrderCubit extends Cubit<OrderState> {
       emit(DeleteOrderErrorState(error.toString()));
     });
   }
-
-  // void register({
-  //   required String email,
-  //   required String username,
-  //   required String password,
-  // }) {
-  //   String basicAuth =
-  //       'Basic ' + base64Encode(utf8.encode('api:fzV(v6*H0p0TkigB^Gp9AeD&'));
-  //   print(basicAuth);
-  //   FormData formData = FormData.fromMap({
-  //     "email": email,
-  //     "username": username,
-  //     "password": password,
-  //   });
-  //   emit(RegisterLoadingState());
-  //   DioHelper.postData(
-  //     url: EndPoints.Register_URL,
-  //     data: formData,
-  //     headers: {'authorization': basicAuth},
-  //   ).then((value) {
-  //     print(value.data);
-  //     CacheHelper.saveData(key: 'username', value: value.data['name'].toString());
-  //     emit(RegisterSuccessState());
-  //   }).catchError((error) {
-  //     print(error.toString());
-  //     emit(RegisterErrorState(error.toString()));
-  //   });
-  // }
-
 }

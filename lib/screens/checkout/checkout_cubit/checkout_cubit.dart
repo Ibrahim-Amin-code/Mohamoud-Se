@@ -13,7 +13,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
   static CheckoutCubit get(context) => BlocProvider.of(context);
 
-  GetAddressModel getAddressModel = GetAddressModel();
+  GetAddressModel? getAddressModel;
 
   // List addressesData=[];
 
@@ -26,7 +26,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       query: {
         'buyerId': userID,
       },
-      token: 'Bearer $token',
+      token: token,
     ).then((value) {
       getAddressModel = GetAddressModel.fromJson(value.data);
       print(value.data);
@@ -52,7 +52,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     String token = await CacheHelper.getData(key: 'token');
     DioHelper.postData(
       url: AddAddress,
-      token: 'Bearer $token',
+      token: token,
       data: {
         'addressId': addressId,
         'address_name': addressName,
